@@ -18,10 +18,10 @@ function App() {
         }
     ]);
 
-    const switchNameHandler = () => {
+    const switchNameHandler = newName => {
         setPersons([
             {
-                name: 'Michael Jackson',
+                name: newName,
                 age: 42,
             },
             {
@@ -35,13 +35,46 @@ function App() {
         ])
     }
 
+    const nameChangedHandler = event => {
+        setPersons([
+            {
+                name: 'Thomas Jefferson',
+                age: 42,
+            },
+            {
+                name: event.target.value,
+                age: 1077,
+            },
+            {
+                name: 'Habib',
+                age: 6
+            }
+        ])
+    }
+
     return (
         <div className="App">
             <h1>What it do pep</h1>
-            <button onClick={switchNameHandler}>Switch Name!</button>
-            <Person name={persons[0].name} age={persons[0].age} title="3rd President of the United States" />
-            <Person name={persons[1].name} age={persons[1].age} title="a mystical warrior from 4E 201st Tamriel">My hobbies are: Drinking Skooma.</Person>
-            <Person name={persons[2].name} age={persons[2].age} title="an uncommon household doggo" />
+            <button onClick={switchNameHandler.bind(this, 'Jamal')}>Switch Name!</button>
+            <Person
+                name={persons[0].name}
+                age={persons[0].age}
+                title="3rd President of the United States"
+                onClick={() => switchNameHandler('Jeff')}
+            />
+            <Person
+                name={persons[1].name}
+                age={persons[1].age}
+                title="a mystical warrior from 4E 201st Tamriel"
+                onClick={switchNameHandler.bind(this, 'MaxWell')}
+                onChanged={nameChangedHandler}>
+                    My hobbies are: Drinking Skooma.
+            </Person>
+            <Person
+                name={persons[2].name}
+                age={persons[2].age}
+                title="an uncommon household doggo"
+            />
         </div>
     );
 }
