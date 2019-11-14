@@ -3,7 +3,7 @@ import './App.css';
 import Person from './Components/Person';
 
 function App() {
-    const [persons, setPersons] = useState([
+    const [personsArray, setPersonsArray] = useState([
         {
             name: 'Thomas Jefferson',
             age: 62,
@@ -18,63 +18,40 @@ function App() {
         }
     ]);
 
-    const switchNameHandler = newName => {
-        setPersons([
-            {
-                name: newName,
-                age: 42,
-            },
-            {
-                name: 'Baldur Cruck',
-                age: 1077,
-            },
-            {
-                name: 'Habib',
-                age: 6
-            }
-        ])
+    const [showPersons, setShowPersons] = useState(false);
+
+    const deletePersonHandler = personIndex => {
+        const newPersonsArray = personsArray.slice();
+        newPersonsArray.splice(personIndex, 1);
+        setPersonsArray(newPersonsArray);
+    };
+
+    const togglePersonsHandler = () => {
+        setShowPersons(!showPersons);
     }
 
-    const nameChangedHandler = event => {
-        setPersons([
-            {
-                name: 'Thomas Jefferson',
-                age: 42,
-            },
-            {
-                name: event.target.value,
-                age: 1077,
-            },
-            {
-                name: 'Habib',
-                age: 6
-            }
-        ])
+    let persons = null;
+
+    if (showPersons) {
+        persons = (
+            <div>
+                {personsArray.map((person, index) => {
+                    return <Person
+                    name={person.name}
+                    age={person.age}
+                    title="3rd President of the United States"
+                    onClick={() => deletePersonHandler(index)}
+                />
+                })}
+            </div>
+        );
     }
 
     return (
         <div className="App">
             <h1>What it do pep</h1>
-            <button onClick={switchNameHandler.bind(this, 'Jamal')}>Switch Name!</button>
-            <Person
-                name={persons[0].name}
-                age={persons[0].age}
-                title="3rd President of the United States"
-                onClick={() => switchNameHandler('Jeff')}
-            />
-            <Person
-                name={persons[1].name}
-                age={persons[1].age}
-                title="a mystical warrior from 4E 201st Tamriel"
-                onClick={switchNameHandler.bind(this, 'MaxWell')}
-                onChanged={nameChangedHandler}>
-                    My hobbies are: Drinking Skooma.
-            </Person>
-            <Person
-                name={persons[2].name}
-                age={persons[2].age}
-                title="an uncommon household doggo"
-            />
+            <button onClick={togglePersonsHandler}>Switch Name!</button>
+            {persons}
         </div>
     );
 }
