@@ -64,10 +64,18 @@ function App() {
         );
     }
 
+    const clasess = [];
+    if (personsArray.length <= 2) {
+        clasess.push('red');
+    }
+    if (personsArray.length <= 1) {
+        clasess.push('bold');
+    }
+
     return (
         <div className="App">
-            <h1>What it do pep</h1>
-            <button onClick={togglePersonsHandler}>Switch Name!</button>
+            <h1 className={clasess.join(' ')}>What it do peep</h1>
+            <button onClick={togglePersonsHandler}>Show other peeps!</button>
             {persons}
         </div>
     );
