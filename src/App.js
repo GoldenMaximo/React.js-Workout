@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
 import './App.css';
-import Radium, { StyleRoot } from 'radium';
 import Person from './Components/Person';
+import styled from 'styled-components';
+
+// This is trash. Putting css code inside the app.js.
+// I hope the tutorial gets better.
+const StyledButton = styled.button`
+    background-color: ${props => props.alt ? 'red' : 'green'};
+    color: white;
+    font: inherit;
+    border: 1px solid blue;
+    padding: 8px;
+    cursor: pointer;
+    &:hover {
+        background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+        color: black;
+    }
+`;
 
 function App() {
     const [personsArray, setPersonsArray] = useState([
@@ -23,19 +38,6 @@ function App() {
     ]);
 
     const [showPersons, setShowPersons] = useState(false);
-
-    const buttonStyle = {
-        backgroundColor: 'green',
-        color: 'white',
-        font: 'inherit',
-        border: '1px solid blue',
-        padding: '8px',
-        cursor: 'pointer',
-        ':hover': {
-            backgroundColor: 'lightgreen',
-            color: 'black',
-        }
-    }
 
     const deletePersonHandler = personIndex => {
         const newPersonsArray = [...personsArray];
@@ -77,11 +79,11 @@ function App() {
             </div>
         );
 
-        buttonStyle.backgroundColor = 'red';
-        buttonStyle[':hover'] = {
-            backgroundColor: 'salmon',
-            color: 'black'
-        }
+        // buttonStyle.backgroundColor = 'red';
+        // buttonStyle[':hover'] = {
+        //     backgroundColor: 'salmon',
+        //     color: 'black'
+        // }
     }
 
     const clasess = [];
@@ -93,14 +95,12 @@ function App() {
     }
 
     return (
-        <StyleRoot>
-            <div className="App">
-                <h1 className={clasess.join(' ')}>What it do peep</h1>
-                <button style={buttonStyle} onClick={togglePersonsHandler}>Show other peeps!</button>
-                {persons}
-            </div>
-        </StyleRoot>
+        <div className="App">
+            <h1 className={clasess.join(' ')}>What it do peep</h1>
+            <StyledButton alt={showPersons} onClick={togglePersonsHandler}>Show other peeps!</StyledButton>
+            {persons}
+        </div>
     );
 }
 
-export default Radium(App);
+export default App;

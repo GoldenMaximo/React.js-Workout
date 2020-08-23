@@ -29,6 +29,7 @@
     ]
   },
   "devDependencies": {
-    "radium": "^0.26.0"
+    "radium": "^0.26.0",
+    "styled-components": "^4.4.1"
   }
 }
